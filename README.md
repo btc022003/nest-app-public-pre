@@ -493,3 +493,47 @@ export class UserService {
   }
 }
 ```
+
+---
+
+# 前端代码
+
+```jsx
+function App() {
+  const loadBooks = () => {
+    fetch('http://localhost:3000/books')
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
+  const loadMovies = () => {
+    fetch('http://localhost:3000/movies', {
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
+  const loginHandle = () => {
+    fetch('http://localhost:3000/app/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        userName: 'xiaohua',
+        password: '123',
+      }),
+      credentials: 'include', // 允许服务器传递cookie过来
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
+  return (
+    <div className='App'>
+      <button onClick={loginHandle}>登陆</button>
+      <hr />
+      <button onClick={loadBooks}>获取书籍数据</button>
+      <button onClick={loadMovies}>获取电影数据</button>
+    </div>
+  );
+}
+
+export default App;
+
+```
