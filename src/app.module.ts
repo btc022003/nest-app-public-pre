@@ -12,12 +12,18 @@ import { ActivitiesModule } from './activities/activities.module';
 import { ShowModule } from './show/show.module';
 
 @Module({
-  imports: [BooksModule, MoviesModule, AuthModule, ActivitiesModule, ShowModule],
+  imports: [
+    BooksModule,
+    MoviesModule,
+    AuthModule,
+    ActivitiesModule,
+    ShowModule,
+  ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService, PrismaService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ValidateLoginMiddleware).forRoutes(...['movies']); // 指定使用登陆验证中间件的路由
+    consumer.apply(ValidateLoginMiddleware).forRoutes(...['activities']); // 指定使用登陆验证中间件的路由
   }
 }
