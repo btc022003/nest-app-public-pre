@@ -7,9 +7,12 @@ import { BooksModule } from './books/books.module';
 import { MoviesModule } from './movies/movies.module';
 import { PrismaService } from './prisma/prisma.service';
 import { ValidateLoginMiddleware } from './validate-login.middleware';
+import { AuthModule } from './auth/auth.module';
+import { ActivitiesModule } from './activities/activities.module';
+import { ShowModule } from './show/show.module';
 
 @Module({
-  imports: [BooksModule, MoviesModule],
+  imports: [BooksModule, MoviesModule, AuthModule, ActivitiesModule, ShowModule],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService, PrismaService],
 })

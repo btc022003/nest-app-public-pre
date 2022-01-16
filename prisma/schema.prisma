@@ -15,10 +15,46 @@ model user {
   userName  String   @unique @map("user_name")
   password  String   @default("")
   nickName  String   @default("") @map("nick_name")
+  email     String   @default("")
+  mobile    String   @default("")
+  remarks   String   @default("")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  activities activity[] // 一个用户可以发布多个活动
   @@map("users")
+}
+
+model activity {
+  id         String   @id @unique @default(uuid())
+  name       String   @default("")
+  desc       String   @default("")
+  content    String   @default("")
+  coverImage String   @default("") @map("cover_image")
+  remarks    String   @default("")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // 关联用户表
+  user   user   @relation(references: [id], fields: [userId])
+  userId String @default("") @map("user_id")
+
+  activityLog activityLog[]
+  @@map("activities")
+}
+
+model activityLog {
+  id        String   @id @unique @default(uuid())
+  name      String   @default("")
+  email     String   @default("")
+  mobile    String   @default("")
+  remarks   String   @default("")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  activity   activity @relation(references: [id], fields: [activityId])
+  activityId String   @default("") @map("activity_id")
+  @@map("activity_logs")
 }
 
 model book {
